@@ -1,0 +1,128 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<div id="main-container" class="container clearfix">
+  <section class="post-left">
+    <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="/">首页</a> » <a href="{%url 'index'%}list-{{show.category.id}}.html">{{show.category.name}}</a> »
+      <span class="current">正文</div>
+    <div class="post-main clearfix">
+      <h1 class="post-title">{{show.title}}</h1>
+      <div class="post-con clearfix">
+        <div class="article-meta">
+          <span class="item">分类：<a href="{%url 'index' %}list-{{show.category.id}}.html" rel="category tag">{{show.category.name}}</a></span>
+          <span class="item">作者：{{show.user.username}}</span>
+          <span class="item">浏览：{{show.views}}</span>
+          <span class="item">{{show.created_time}}</span>
+
+        </div>
+        <article class="article-content">
+            {{show.body|safe}}
+        </article>
+
+        <div class="post-tag"><span class="fa fa-tags" aria-hidden="true"></span>标签：
+          {% for item in show.tags.all %}
+          <a href="{%url 'index'%}tag/{{item.name}}" rel="tag">{{item.name}}</a>
+          {% endfor %}
+        </div>
+        <div>
+          <div><b>上一篇：</b>
+            {% if previous_blog %}
+                <a href="{%url 'index' %}show-{{previous_blog.id}}.html" class="article-tag">{{previous_blog.title}}</a>
+            {% else %}
+                没有了
+            {% endif %}
+          </div>
+          <div><b>下一篇：</b>
+            {% if next_blog %}
+                <a href="{%url 'index'%}show-{{next_blog.id}}.html" class="article-tag">{{next_blog.title}}</a>
+            {% else %}
+                没有了
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /文章 -->
+
+
+    <div class="recommend  hidden-xs">
+
+      <div class="head clearfix"><span class="sp">您可能感兴趣的:</span></div>
+      <ul>
+        {% for item in hot %}
+        <li>
+          <div class="pic">
+            <a href="{% url 'index'%}show-{{item.id}}.html" title="{{item.title}}"><img src="{% url 'index'%}media/{{item.img}}"
+                srcset="{%url 'index'%}media/{{item.img}}" alt="{{item.title}}" class="wp-post-image"
+                width="145" height="100" /></a>
+          </div>
+          <a class="descript " href="{% url 'index'%}show-{{item.id}}.html" rel="bookmark" title="{{item.title}}">{{item.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+  </section>
+  <!-- /post-left -->
+  <!-- /post-right -->
+  <aside class="post-right hidden-xs">
+    </section>
+    </section>
+
+    <section class="widget post-right-item">
+      <h4 class="post-right-title">热门推荐</h4>
+
+
+      <ul class="post-hot clearfix">
+        {% for item in remen %}
+        <li>
+          <div class="img">
+
+            <a href="{% url 'index'%}show-{{item.id}}.html" title="{{item.title}}"><img src="{% url 'index'%}media/{{item.img}}"
+                srcset="{% url 'index'%}media/{{item.img}}" alt="" class="wp-post-image" width="120"
+                height="80" /></a>
+
+          </div>
+          <a href="{% url 'index'%}show-{{item.id}}.html" title="{{item.title}}" target="_blank"
+            class="title">{{item.title}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    </section>
+    <section class="widget post-right-item">
+      <h4 class="post-right-title">所有标签</h4>
+      <div class="tags">
+
+        <a href="/tag/django">django</a>
+
+        <a href="/tag/Python教程">Python教程</a>
+
+        <a href="/tag/Django教程">Django教程</a>
+
+        <a href="/tag/mysql">mysql</a>
+
+        <a href="/tag/Linux">Linux</a>
+
+      </div>
+    </section>
+    </section><!-- /关注我们 -->
+    <div class="post-right-item">
+      <h4 class="post-right-title">关注我们</h4>
+      <div class="wid-about">
+        <p>拓普Python学院，欢迎关注！</p>
+        <img src="static/picture/weixinqr.jpg" width="160" height="160">
+      </div>
+      <div class="wid-about">
+        <p><strong>联系方式:</strong></p>
+        <p>QQ:445813</p>
+        <p>Email：445813@qq.com</p>
+      </div>
+    </div>
+
+  </aside>
+
+  </aside>
+</div>
+{% endblock %}
